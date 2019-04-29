@@ -16,7 +16,15 @@ class CreateCbtQuestionsTable extends Migration
         Schema::create('cbt_questions', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->string('body');
+            $table->string('question');
+            $table->string('optionA');
+            $table->string('optionB');
+            $table->string('optionC');
+            $table->string('optionD');
+            $table->string('correct_answer');
+            $table->boolean('requred')->default(1);
+            $table->integer('joblisting_id');
+            $table->foreign('joblisting_id')->references('id')->on('joblisting');
             $table->softDeletes();
             $table->timestamps();
         });

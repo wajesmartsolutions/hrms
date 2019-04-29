@@ -28,8 +28,9 @@ Route::resource('company', 'CompanyController');
 Route::resource('roles', 'RoleController');
 Route::group(['middleware' => 'auth:api'], function(){
 Route::get('details', 'PassportController@details');
-Route::resource('cbtQuestion', 'CbtController');
 //Route::resource('question', 'Interview_questionsController');
 });
 
 Route::post('updateUser','PassportController@updateUser');
+
+Route::resource('cbtQuestion', 'CbtController');
