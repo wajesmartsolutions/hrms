@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interview_questions;
 use App\Joblisting;
+use DB;
 
 class JoblistingController extends Controller
 {
-    //
+    
     public function create(Request $request)
     {
+        $keywords = $request->get('keywords');
+        $serialkeywords = serialize($keywords);
+
         $data = $request->json()->all();
         $joblisting = new Joblisting();
         $joblisting->requiredskill = $data['requiredskill'];
@@ -21,7 +25,12 @@ class JoblistingController extends Controller
         $joblisting->job_location= $data['job_location'];
         $joblisting->entrydate = $data['entrydate'];
         $joblisting->jobstatus = $data['jobstatus'];
+        $joblisting->expectedsalary = $data['expectedsalary'];
+        $joblisting->max_age = $data['max_age'];
         $joblisting->jobcategory = $data['jobcategory'];
+        $joblisting->working_hours = $data['working_hours'];
+        $joblisting->keywords = $serialkeywords;
+        $joblisting->max_applications = $data['max_applications'];
         $joblisting->save();
         $question = Interview_questions::find($data['question']);
         $joblisting->questions()->attach($question);
@@ -44,7 +53,7 @@ class JoblistingController extends Controller
         }elseif(isset($jobrole)){
             $record=Joblisting::where('role', '=', $jobrole)
                     ->where('status','=','1')
-                    ->with('questions')
+                    // ->with('questions')
                     ->get();
         }elseif(isset($joblocation)){
             $record=Joblisting::where('job_location', '=', $joblocation)
@@ -126,9 +135,30 @@ class JoblistingController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'JOblisting could not be deleted'
+                'message' => 'Joblisting could not be deleted'
             ], 500);
         }
+    }
+
+    public function findJob(Request $request,$job)
+     {
+         //find by location, title or keywords    
+
+        $jobs = Joblisting::where('job_location','LIKE',"$job%")
+        ->orWhere('role',"$job")
+        ->orWhere('keywords','LIKE',"%$job%")
+        ->get();
+
+        
+         if(count($jobs) !==0 or !empty($jobs)){
+            return response()->json(["status"=>"true","data"=>$jobs]);
+        }else{
+             return response()->json([
+                'status'=>'false',
+                'message'=>'Job doesnt exist',
+            ],500);
+        }
+
     }
    
 }

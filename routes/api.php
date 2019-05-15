@@ -16,6 +16,9 @@ Route::post('assignPermission','RoleController@assignPermission');
 Route::post('login', 'PassportController@login');
 Route::post('register', 'PassportController@register');
 Route::post('opennings','JoblistingController@create');
+//find by location,title, or 
+Route::get('opennings/{job}','JoblistingController@findJob');
+
 Route::post('appliedjobposting','ApplyjobsController@appliedjobposting');
 Route::get('listappliedjobposting','ApplyjobsController@listappliedjobposting');
 Route::get('listopenings','JoblistingController@retrieve');
@@ -33,4 +36,5 @@ Route::get('details', 'PassportController@details');
 
 Route::post('updateUser','PassportController@updateUser');
 
-Route::resource('cbtQuestion', 'CbtController');
+Route::resource('cbtQuestion', 'CbtController'); //CBT resource with all crud
+Route::post('cbtQuestion','CbtCOntroller@checkAswer');

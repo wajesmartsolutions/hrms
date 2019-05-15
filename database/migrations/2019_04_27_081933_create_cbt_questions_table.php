@@ -22,8 +22,8 @@ class CreateCbtQuestionsTable extends Migration
             $table->string('optionC');
             $table->string('optionD');
             $table->string('correct_answer');
-            $table->boolean('requred')->default(1);
-            $table->integer('joblisting_id');
+            $table->boolean('required')->default(1);
+            $table->bigInteger('joblisting_id')->unsigned();
             $table->foreign('joblisting_id')->references('id')->on('joblisting');
             $table->softDeletes();
             $table->timestamps();

@@ -36,6 +36,7 @@ class CbtController extends Controller
         $question->optionC = $data['optionC'];
         $question->optionD = $data['optionD'];
         $question->required = $data['required'];
+        $question->joblisting_id = $data['joblisting_id'];
         $question->correct_answer = $data['correct_answer'];
         $success  = $question->save();
         if($success)

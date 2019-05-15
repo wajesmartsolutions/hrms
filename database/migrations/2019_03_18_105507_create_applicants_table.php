@@ -20,7 +20,26 @@ class CreateApplicantsTable extends Migration
             $table->string('lastname');
             $table->string('phonenumber');
             $table->string('emailaddress');
-            $table->string('documents');        
+            $table->string('password')->nullable();       
+            $table->string('joblisting_id');
+            $table->integer('stage');
+            $table->integer('interview_type_id');
+            $table->unsignedInteger('interview_type_id')->nullable();
+           
+            $table->foreign('interview_type_id')
+            ->references('id')
+            ->on('interview_type')
+            ->onUpdate('cascade')
+            ->onDelete('no action');
+            });
+
+            $table->integer('document_id'); 
+            $table->unsignedInteger('document_id')->nullable();
+            $table->foreign('document_id')
+            ->references('id')
+            ->on('documents')
+            ->onUpdate('cascade')
+            ->onDelete('no action');
             });
     }
 

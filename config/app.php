@@ -235,6 +235,8 @@ return [
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         #'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         #'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
     ],
 
 ];
